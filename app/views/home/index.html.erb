@@ -1,0 +1,26 @@
+<h1>Home#index</h1>
+<% if user_signed_in? %>
+  <%= link_to "logout", destroy_user_session_path, method: :delete %>
+  <p>こんにちは、<%= current_user.email %>さん</p>
+  <p><a href="http://norisuke-login3.test/companies/new">所属会社を作成する</a></p>
+  <p><%= a = 1 %></p>
+  <ul>
+    <% @users.each do |user| %>
+      <li>
+        <%= user.email %> | 所属会社：
+        <%= user.company_users.find_by(user_id: user.id).company.name unless user.company_users.find_by(user_id: user.id) == nil %>
+        
+
+        
+      </li>
+    <% end %>
+  </ul>
+  <p>会社名一覧</p>
+  <ul>
+    <% @companies.each do |company| %>
+    <li><%= company.name %></li>
+    <% end %>
+  </ul>
+<% else %>
+  <%= link_to "login", new_user_session_path %>
+<% end %>
