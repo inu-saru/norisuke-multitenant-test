@@ -20,7 +20,8 @@ class Users::SessionsController < Devise::SessionsController
       unless (belonged_companies = CompanyUser.find_by(user_id: current_user).company.name) == nil then
         #所属するテナントに切り替え
         Apartment::Tenant.switch!(belonged_companies)
-        redirect_to('http://' + CompanyUser.find_by(user_id: current_user).company.name + '.' + request.domain, status: 301)
+        #redirect_to('http://' + CompanyUser.find_by(user_id: current_user).company.name + '.' + request.domain, status: 301)
+        redirect_to root_url(subdomain: "#{CompanyUser.find_by(user_id: current_user).company.name}")
       else
         redirect_to '/companies/new'
       end

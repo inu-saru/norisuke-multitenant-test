@@ -28,7 +28,7 @@ class CompaniesController < ApplicationController
       Apartment::Tenant.create(tenant_name)
       #作成したテナントに切り替え
       Apartment::Tenant.switch!(tenant_name)
-      redirect_to @company
+      redirect_to root_url(subdomain: "#{tenant_name}")
     else
       render 'new'
     end
